@@ -1,1 +1,1 @@
-export {default as AbstractDemo} from './demo';
+export { default as AbstractDemo } from './demo';

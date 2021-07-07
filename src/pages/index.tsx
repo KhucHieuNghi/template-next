@@ -1,4 +1,4 @@
-import Home from '~/container/home';
+import Home from '~/containers/home';
 
 const Page = () => <Home />;
 

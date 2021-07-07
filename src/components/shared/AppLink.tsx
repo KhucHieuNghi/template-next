@@ -1,28 +1,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { ReactNode, CSSProperties } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 import Link, { LinkProps } from 'next/link';
 
 export type IAppLinkHref = LinkProps;
 
-interface Props {
-    style?: CSSProperties,
-    target?:string
+interface IProps {
+    style: CSSProperties,
+    target:string
     children: ReactNode
-    className?: string
-    onMouseEnter?: ((event: React.MouseEvent<Element, MouseEvent>) => void) | undefined;
+    className: string
+    // eslint-disable-next-line no-unused-vars
     onClick: (event: React.MouseEvent<Element, MouseEvent>) => void;
     href: string;
-    ref?: any;
+    ref: any;
 }
 
 const AppLink = ({
     children, href, ...commonLinkProps
-}:Props) => (
+}:IProps) => (
     <Link href={href}>
         <a {...commonLinkProps}>
             {children}
         </a>
     </Link>
-    );
+);
 
 export default AppLink;

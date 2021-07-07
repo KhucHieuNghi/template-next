@@ -1,11 +1,10 @@
-// import express from 'express';
-// import url from 'url';
-// import next from 'next';
 const express = require('express');
-const url = require('url');
 const next = require('next');
+const useragent = require('express-useragent');
+const middlewareResponse = require('./middleware/response');
 // import routes from './router';
 
+const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -13,21 +12,34 @@ const server = express();
 
 // routes(server);
 
+server.use('/health', (_, res) => res.status(200).send('ping'));
+
 app.prepare().then(() => {
-    server.use((req, res) => {
-    // Be sure to pass `true` as the second argument to `url.parse`.
-    // This tells it to parse the query portion of the URL.
-    const parsedUrl = url.parse(req.url, true);
-    const { pathname, query } = parsedUrl;
+    server.use((req, res, cb) => {
+        req.ua = req.headers['user-agent'] ? useragent.parse(req.headers['user-agent']) : { isMobile: true };
+        cb();
+    });
 
-    if (pathname === '/a') {
-      app.render(req, res, '/a', query);
-    } else {
-      handle(req, res, parsedUrl);
-    }
-  });
+    server.use(middlewareResponse);
 
-  server.listen(8080, () => {
-    console.log('> Ready on http://localhost:8080');
-  });
+    server.use((req, res, cb) => {
+        res.header(
+            'Access-Control-Allow-Headers',
+            'Origin, X-Requested-With, Content-Type, Accept, lang',
+        );
+        cb();
+    });
+
+    server.use(handle);
+
+    server.listen(port, () => console.log(`> Ready on http://localhost:${port}`));
 });
+
+// setInterval(() => {
+//     try {
+//         global.gc();
+//     } catch (e) {
+//         console.log("You must run program with 'node --expose-gc server.js' or 'npm start'");
+//         process.exit();
+//     }
+// }, 5000);

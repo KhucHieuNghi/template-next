@@ -1,3 +1,3 @@
-export const Error = () => 'Lỗi 404 rồi';
+export const Error = () => 'Lỗi 404 router không tồn tại!';
 
 export default Error;

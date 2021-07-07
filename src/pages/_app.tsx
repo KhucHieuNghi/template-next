@@ -1,32 +1,42 @@
-import React, { FC } from 'react';
-import '../scss/index.scss';
-import withRedux from 'next-redux-wrapper';
-import {Provider} from 'react-redux';
+import '../styles/index.scss';
+import '../styles/index.css';
+import React from 'react';
+import { AppProps, AppContext } from 'next/app';
+import Head from 'next/head';
+import { createWrapper } from 'next-redux-wrapper';
+import { Provider } from 'react-redux';
 import store from '~/stores/rootStores';
+import Layout from '~/components/layout';
+import I18N from '~/utils/i18n';
 
-React.useLayoutEffect = React.useEffect;
-//! error SSR with Atn-design
-// https://blog.hao.dev/render-client-side-only-component-in-next-js
+export type StaticInitProp = AppProps & AppContext
 
-interface StaticInitProp{
-  Component: FC & { getInitialProps: FC }
-  ctx: any
-}
-
-function MyApp({ Component, pageProps }: any) {
-  return (
-      <Provider store={store}>
-          <Component {...pageProps} />
-      </Provider>
+function MyApp({ Component, pageProps }: StaticInitProp) {
+    return (
+        <React.Fragment>
+            <I18N>
+                <Head>
+                    <title>Home Credit Vietnam</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=1" />
+                </Head>
+                <Provider store={store}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </Provider>
+            </I18N>
+        </React.Fragment>
     );
 }
 
-MyApp.getInitialProps = async ({Component, ctx}: StaticInitProp) => {
-  const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+MyApp.getInitialProps = async ({ Component, ctx }: StaticInitProp) => {
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
 
-  return {pageProps};
+    return { pageProps };
 };
 
 const makeStore = () => store;
 
-export default withRedux(makeStore)(MyApp);
+const Wrapper = createWrapper(makeStore);
+
+export default Wrapper.withRedux(MyApp);
