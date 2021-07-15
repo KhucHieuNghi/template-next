@@ -11,4 +11,4 @@ export default async (req:NextApiRequest, res: NextApiResponse<any>) => {
     } catch (e) {
         res.status(e.status).json({ messsage: e.messsage });
     }
-}
+};

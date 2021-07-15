@@ -41,8 +41,8 @@ const EServiceOtp = () => {
 
     let retryTimeLeft = 3;
     let resendTimeLeft = 3; // the resendTimeLeft should be stored stable
-    let resendTimer = 0;
-    let hasError = false;
+    const resendTimer = 0;
+    const hasError = false;
     let errorMessage = '';
 
     const hidden = (phone, number) => {
@@ -149,16 +149,26 @@ const EServiceOtp = () => {
             // change input disable state
             inputDisabled = !inputDisabled;
             // Render a completed state
-            return <span>{minutes}:{seconds}</span>;
+            return (<span>
+                {minutes}
+                :
+                {seconds}
+                    </span>);
         }
         // Render a countdown
-        return <span>{minutes}:{seconds}</span>;
+        return (<span>
+            {minutes}
+            :
+            {seconds}
+                </span>);
     };
 
     return (
         <Container>
-            <a href="#" className="e-service__back" onClick={() => router.back()} style={{ color: "red" }}>
-                <ArrowLeftOutlined className="site-form-item-icon" /> Quay lại
+            <a href="#" className="e-service__back" onClick={() => router.back()} style={{ color: 'red' }}>
+                <ArrowLeftOutlined className="site-form-item-icon" />
+                {' '}
+                Quay lại
             </a>
             <VerifyContainer>
                 <VerifyWrapper>
@@ -166,12 +176,18 @@ const EServiceOtp = () => {
                         XÁC NHẬN KÝ SỬ DỤNG DỊCH VỤ ĐIỆN TỬ
                     </Title>
                     <p className="text-center">
-                        Mã xác thực đã được gửi đến số điện thoại <strong style={{ fontWeight: 'bold' }}>{hidden(phoneNumber, 4)}</strong><br />
-                        và có hiệu lực trong vòng <span style={{ color: "red" }}>
-                            <Countdown 
+                        Mã xác thực đã được gửi đến số điện thoại
+                        {' '}
+                        <strong style={{ fontWeight: 'bold' }}>{hidden(phoneNumber, 4)}</strong>
+                        <br />
+                        và có hiệu lực trong vòng
+                        {' '}
+                        <span style={{ color: 'red' }}>
+                            <Countdown
                                 key={countDown}
                                 date={countDown}
-                                renderer={renderer} />
+                                renderer={renderer}
+                            />
                         </span>
                     </p>
                     <WrapperInput
@@ -191,7 +207,7 @@ const EServiceOtp = () => {
                     />
 
                     <div className="validation-summary-errors" id="message-error" style={{ display: hasError ? 'block' : 'none' }}>
-                        <span style={{ color: "red" }}>
+                        <span style={{ color: 'red' }}>
                             {errorMessage}
                         </span>
                     </div>

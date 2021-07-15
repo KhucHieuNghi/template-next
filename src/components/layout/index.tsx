@@ -6,8 +6,8 @@ interface IProps {}
 const Layout = ({ children }:PropsWithChildren<IProps>) => (
     <Fragment>
         <PageContainer>
-       {children}
-       </PageContainer>
+            {children}
+        </PageContainer>
     </Fragment>
 
 );

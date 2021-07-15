@@ -1,17 +1,28 @@
-import { Component } from "react";
+import { Component } from 'react';
 
 export class EOtpRequestModel extends Component {
     encryptedCUID?: string;
+
     customerName?: string;
+
     idNumber?: number;
+
     phoneNumber?: string;
+
     birthDate?: Date;
+
     documentType?: string;
+
     documentNumber?: number;
+
     firstName?: string;
+
     lastName?: string;
+
     middleName?: string;
+
     frb?: string;
+
     dl?: string;
 
     constructor(props) {

@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse | any) => {
             `${ESERVICE_GATEWAY_API}${ESIGNING_PATH}/${eOtpPath}`,
             req.body,
         );
-        console.log(`Server endcall e-sigining-service: `);
+        console.log('Server endcall e-sigining-service: ');
         console.log(result.data);
         res.RESP(result.data);
     } catch (e) {

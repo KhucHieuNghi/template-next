@@ -10,7 +10,8 @@
     ]],
     "plugins": [
         "inline-react-svg",
-        "@emotion/babel-plugin"
+        "@emotion/babel-plugin",
+        ["import",{ "libraryName": "antd", "style": true }]
     ],
     "env": {
         "production": {

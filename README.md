@@ -85,3 +85,6 @@ NextJs
 ..........
 Merge request
 
+# husky 
+npx husky add .husky/pre-commit "yarn lint-staged"
+commitlint: setup commit with convention
